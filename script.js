@@ -1326,6 +1326,15 @@ function openChatRoom(room) {
         const sendMessage = () => {
             const message = messageInput.value.trim();
             if (message) {
+                // Check if WebSocket is open
+                if (!socket || socket.readyState !== WebSocket.OPEN) {
+                    console.error('WebSocket is not connected');
+                    // Fallback to HTTP
+                    sendMessageFallback(room.id, message);
+                    messageInput.value = '';
+                    return;
+                }
+                
                 // Send via WebSocket for real-time updates
                 socket.send(JSON.stringify({
                     type: 'message',
@@ -1349,7 +1358,7 @@ function openChatRoom(room) {
                 // Send typing indicator
                 // Check profile settings before sending typing indicator
                 const profile = getUserProfile();
-                if (profile.typingIndicator) {
+                if (profile.typingIndicator && socket && socket.readyState === WebSocket.OPEN) {
                     socket.send(JSON.stringify({
                         type: 'typing',
                         roomId: room.id,

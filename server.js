@@ -241,6 +241,23 @@ wss.on('connection', (ws, req) => {
     console.log('New WebSocket connection from:', req.socket.remoteAddress);
     
     let clientNickname = null;
+    let isAlive = true;
+    
+    // Ping/pong to keep connection alive (Railway timeout prevention)
+    ws.on('pong', () => {
+        isAlive = true;
+    });
+    
+    const pingInterval = setInterval(() => {
+        if (!isAlive) {
+            console.log('Terminating inactive connection');
+            clearInterval(pingInterval);
+            ws.terminate();
+            return;
+        }
+        isAlive = false;
+        ws.ping();
+    }, 30000); // Ping every 30 seconds
     
     ws.on('message', async (data) => {
         try {
@@ -564,6 +581,7 @@ wss.on('connection', (ws, req) => {
     });
     
     ws.on('close', () => {
+        clearInterval(pingInterval);
         if (clientNickname) {
             console.log(`User disconnected: ${clientNickname}`);
             leaveAllRooms(clientNickname);
@@ -573,6 +591,7 @@ wss.on('connection', (ws, req) => {
     });
     
     ws.on('error', (error) => {
+        clearInterval(pingInterval);
         console.error('WebSocket error:', error);
         if (clientNickname) {
             leaveAllRooms(clientNickname);
