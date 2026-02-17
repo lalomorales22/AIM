@@ -38,7 +38,7 @@ $isLoggedIn = isset($_SESSION['user']);
         // WebSocket server URL - change this after Railway deployment
         // Default: same host (works if WebSocket is on same server)
         // Production: 'wss://your-railway-app.up.railway.app'
-        window.WEBSOCKET_URL = null; // Set to null to use same host, or 'wss://your-railway-url'
+        window.WEBSOCKET_URL = 'wss://aim-production-31f6.up.railway.app';
     </script>
     <link rel="stylesheet" href="style.css">
     <style>
