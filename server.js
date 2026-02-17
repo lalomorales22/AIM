@@ -173,18 +173,29 @@ function broadcastToRoom(roomId, message, excludeNickname = null) {
 // Save message to database
 function saveMessage(roomId, nickname, message) {
     return new Promise((resolve, reject) => {
-        const stmt = db.prepare(
-            'INSERT INTO messages (room_id, user_nickname, message) VALUES (?, ?, ?)'
-        );
-        stmt.run([roomId, nickname, message], function(err) {
-            if (err) {
-                console.error('Error saving message:', err);
-                reject(err);
-            } else {
-                resolve(this.lastID);
-            }
-        });
-        stmt.finalize();
+        if (!db) {
+            console.error('Database not initialized');
+            reject(new Error('Database not available'));
+            return;
+        }
+        
+        try {
+            const stmt = db.prepare(
+                'INSERT INTO messages (room_id, user_nickname, message) VALUES (?, ?, ?)'
+            );
+            stmt.run([roomId, nickname, message], function(err) {
+                if (err) {
+                    console.error('Error saving message:', err);
+                    reject(err);
+                } else {
+                    resolve(this.lastID);
+                }
+            });
+            stmt.finalize();
+        } catch (err) {
+            console.error('Exception saving message:', err);
+            reject(err);
+        }
     });
 }
 
@@ -515,6 +526,26 @@ wss.on('connection', (ws, req) => {
                             type: 'direct_typing',
                             from: clientNickname
                         }));
+                    }
+                    
+                    break;
+                }
+                
+                case 'update_profile': {
+                    if (!clientNickname) return;
+                    
+                    // Update client profile
+                    const client = clients.get(clientNickname);
+                    if (client) {
+                        client.profile = {
+                            displayName: sanitizeInput(message.displayName) || clientNickname,
+                            status: sanitizeInput(message.status) || 'online',
+                            avatarColor: message.avatarColor || client.profile?.avatarColor || '#' + Math.floor(Math.random()*16777215).toString(16)
+                        };
+                        console.log(`Updated profile for ${clientNickname}`);
+                        
+                        // Broadcast updated active users
+                        broadcastActiveUsers();
                     }
                     
                     break;

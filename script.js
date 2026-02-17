@@ -1330,8 +1330,7 @@ function openChatRoom(room) {
                 socket.send(JSON.stringify({
                     type: 'message',
                     roomId: room.id,
-                    message: message,
-                    nickname: userInfo.nickname
+                    message: message
                 }));
                 
                 // Also save directly to database for persistence
@@ -1354,7 +1353,7 @@ function openChatRoom(room) {
                     socket.send(JSON.stringify({
                         type: 'typing',
                         roomId: room.id,
-                        nickname: userInfo.nickname
+                        isTyping: true
                     }));
                 }
             }
@@ -1371,7 +1370,7 @@ function openChatRoom(room) {
         
         // Join the room
         socket.send(JSON.stringify({
-            type: 'join',
+            type: 'join_room',
             roomId: room.id,
             nickname: userInfo.nickname
         }));
