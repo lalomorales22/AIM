@@ -34,6 +34,12 @@ $isLoggedIn = isset($_SESSION['user']);
     <meta name="application-name" content="AIM Chat '95">
     <link rel="manifest" href="manifest.json">
     <title>AIM Chatrooms '95</title>
+    <script>
+        // WebSocket server URL - change this after Railway deployment
+        // Default: same host (works if WebSocket is on same server)
+        // Production: 'wss://your-railway-app.up.railway.app'
+        window.WEBSOCKET_URL = null; // Set to null to use same host, or 'wss://your-railway-url'
+    </script>
     <link rel="stylesheet" href="style.css">
     <style>
         .splash-screen {
