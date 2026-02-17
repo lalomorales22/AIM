@@ -1,4 +1,4 @@
-# DEPLOYMENT GUIDE - AOL Chat App
+# DEPLOYMENT GUIDE - AIM Chat App
 
 ## ✅ What Was Fixed
 

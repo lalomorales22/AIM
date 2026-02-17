@@ -1,6 +1,6 @@
-# AOL Chat WebSocket Server
+# AIM Chat WebSocket Server
 
-WebSocket server for the AOL-style chat application.
+WebSocket server for the AIM-style chat application.
 
 ## Deployment to Railway
 

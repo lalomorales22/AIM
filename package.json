@@ -1,7 +1,7 @@
 {
-  "name": "aol-chat-websocket-server",
+  "name": "aim-chat-websocket-server",
   "version": "1.0.0",
-  "description": "WebSocket server for AOL-style chat application",
+  "description": "WebSocket server for AIM-style chat application",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

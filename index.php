@@ -28,12 +28,12 @@ $isLoggedIn = isset($_SESSION['user']);
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#008080">
-    <meta name="description" content="AOL Chatrooms '95 - A retro-style chat application">
+    <meta name="description" content="AIM Chatrooms '95 - A retro-style chat application">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="AOL Chat '95">
-    <meta name="application-name" content="AOL Chat '95">
+    <meta name="apple-mobile-web-app-title" content="AIM Chat '95">
+    <meta name="application-name" content="AIM Chat '95">
     <link rel="manifest" href="manifest.json">
-    <title>AOL Chatrooms '95</title>
+    <title>AIM Chatrooms '95</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .splash-screen {
@@ -107,7 +107,7 @@ $isLoggedIn = isset($_SESSION['user']);
         <?php if (!$isLoggedIn): ?>
             <div class="window login-window" id="login-window" style="display: none;">
                 <div class="window-header">
-                    <div class="window-title">AOL Chatrooms '95 - Login</div>
+                    <div class="window-title">AIM Chatrooms '95 - Login</div>
                     <div class="window-controls">
                         <button class="control-button minimize">-</button>
                         <button class="control-button maximize">□</button>
@@ -116,11 +116,11 @@ $isLoggedIn = isset($_SESSION['user']);
                 </div>
                 <div class="window-content">
                     <div class="login-container">
-                        <img src="images/aol-logo.png" alt="AOL Logo" class="aol-logo">
+                        <img src="images/aol-logo.png" alt="AIM Logo" class="aim-logo">
                         
                         <!-- Login Form -->
                         <div class="login-form active" id="login-form">
-                            <h2>Welcome to AOL Chatrooms '95</h2>
+                            <h2>Welcome to AIM Chatrooms '95</h2>
                             <div class="form-group">
                                 <label for="username">Username:</label>
                                 <input type="text" id="username" name="username" required>
@@ -187,7 +187,7 @@ $isLoggedIn = isset($_SESSION['user']);
             <!-- Chatrooms Window -->
             <div class="window" id="chatrooms-window" style="display: none;">
                 <div class="window-header">
-                    <div class="window-title">AOL Chatrooms '95</div>
+                    <div class="window-title">AIM Chatrooms '95</div>
                     <div class="window-controls">
                         <button class="control-button minimize">-</button>
                         <button class="control-button maximize">□</button>
